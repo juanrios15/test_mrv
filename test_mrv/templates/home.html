@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 
 {% block left_side %}
-<div class="row py-4 px-2">
-    <div class="col-6 size-24 font-weight-bold">Home</div>
-    <div class="col-6 text-end size-24 second-text-color">Trainer</div>
-</div>
 <div class="row pt-4 pb-5 px-2">
     <div class="col-12 size-64">
         Elevate your Communication Like Never Before
@@ -26,18 +22,6 @@
 
 {% block right_side %}
 <div class="row py-4 px-2">
-    <div class="col-12 d-flex justify-content-end">
-        <a href="{% url 'users_app:login' %}" class="size-24 font-weight-bold third-text-color px-2 py-1 text-decoration-none">Login</a>
-        <div class="size-24 text-white rounded third-background-color px-2 py-1">Join Us
-            <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M0.5 9.5C0.5 9.14013 0.625098 8.795 0.847772 8.54053C1.07045 8.28606 1.37246 8.1431 1.68737 8.1431H15.4442L10.3456 2.3193C10.1227 2.06451 9.99744 1.71894 9.99744 1.35861C9.99744 0.998286 10.1227 0.652718 10.3456 0.397929C10.5686 0.143139 10.871 0 11.1863 0C11.5016 0 11.804 0.143139 12.027 0.397929L19.1512 8.53932C19.2617 8.66536 19.3495 8.81509 19.4093 8.97995C19.4692 9.1448 19.5 9.32152 19.5 9.5C19.5 9.67848 19.4692 9.8552 19.4093 10.0201C19.3495 10.1849 19.2617 10.3346 19.1512 10.4607L12.027 18.6021C11.804 18.8569 11.5016 19 11.1863 19C10.871 19 10.5686 18.8569 10.3456 18.6021C10.1227 18.3473 9.99744 18.0017 9.99744 17.6414C9.99744 17.2811 10.1227 16.9355 10.3456 16.6807L15.4442 10.8569H1.68737C1.37246 10.8569 1.07045 10.7139 0.847772 10.4595C0.625098 10.205 0.5 9.85987 0.5 9.5Z"
-                    fill="white" />
-            </svg>
-        </div>
-    </div>
-</div>
-<div class="row py-4 px-2">
     <div class="col-12 size-48">
         The power of White Board Figure
     </div>
@@ -52,3 +36,15 @@
     </div>
 </div>
 {% endblock right_side %}
+
+{% block leftside_class %}
+    bg-white
+{% endblock %}
+
+{% block rightside_class %}
+    first-background-color
+{% endblock %}
+
+{% block homebtn_class %}
+    selected-text-color
+{% endblock %}
