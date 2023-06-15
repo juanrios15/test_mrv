@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block left_side %}
+<form method="get" action="{% url 'shells_app:trainer' %}">
+    <div class="row">
+        <div class="col-6">
+            <div class="row py-4 px-2">
+                <div class="col-12 size-48">
+                    Configure your course
+                </div>
+            </div>
+            <div class="row px-2">
+                <div class="categories_div">
+                    <div class="row">
+                        <div class="col-12 size-32 py-3">
+                            Select the "Card content category" you want to train
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 third-text-color">
+                            Card content category
+                        </div>
+                        <div class="col-6">
+                            {% for category in object_list %}
+                            <div class="row">
+                                <label>
+                                    <input type="checkbox" name="{{category.name}}" id="{{category.id}}" value="{{category.id}}"> {{category.name}}
+                                </label>
+                            </div>
+                            {% empty %}
+                            No categories yet
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+        <div class="col-6">
+            <button type="submit">Start training session</button>
+        </div>
+    </div>
+</form>
+{% endblock left_side %}
+
+
+{% block leftside_class %}
+col-12 first-background-color
+{% endblock %}
+
+{% block rightside_class %}
+d-none
+{% endblock %}

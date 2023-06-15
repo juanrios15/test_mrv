@@ -1,0 +1,64 @@
+.main_font {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.size-14 {
+    font-size: 14px;
+}
+
+.size-24 {
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.size-32 {
+    font-size: 32px;
+    line-height: 32px;
+}
+
+.size-48 {
+    font-size: 48px;
+    line-height: 48px;
+}
+
+.size-64 {
+    font-size: 64px;
+    letter-spacing: 0.2px;
+    line-height: 64px;
+}
+
+.second-text-color {
+    color: #737373;
+}
+
+.third-text-color {
+    color: #23A6F0;
+}
+
+.selected-text-color {
+    color: #252B42;
+    font-weight: bold;
+}
+
+.first-background-color {
+    background-color: #B2E3FF;
+}
+
+.third-background-color {
+    background-color: #23A6F0;
+}
+
+.footer-row {
+    background-color: #FAFAFA;
+}
+
+.home-start-btn {
+    background-color: #DC3545;
+    border-radius: 10px;
+}
+
+.categories_div {
+    height: 60vh;
+    overflow-y: scroll;
+    background-color: white;
+}

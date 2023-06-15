@@ -14,20 +14,29 @@
 <body class="h-100 main_font">
     <div class="container-fluid h-100">
         <div class="row h-100">
-            <div class="col-6 ps-5 h-100 {% block leftside_class %}bg-white{% endblock %}">
+            <div class="{% block leftside_class %}col-6 bg-white{% endblock %} ps-5 h-100">
                 <div class="row py-4 px-2">
                     <a href="/"
-                        class="col-6 size-24 {% block homebtn_class %}selected-text-color{% endblock %} text-decoration-none">Home</a>
-                    <div class="col-6 text-end size-24 second-text-color">Trainer</div>
+                        class="col-6 size-24 {% block homebtn_class %}selected-text-color{% endblock %} text-decoration-none">
+                        Home</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'shells_app:config' %}"
+                        class="col-6 text-end size-24 second-text-color text-decoration-none">Trainer</a>
+                    {% else %}
+                    <a href="{% url 'shells_app:config' %}"
+                        class="col-6 text-end size-24 second-text-color text-decoration-none">Trainer</a>
+                    {% endif %}
                 </div>
                 {% block left_side %}
                 {% endblock left_side %}
             </div>
-            <div class="col-6 h-100 pe-5 {% block rightside_class %}first-background-color{% endblock %}">
+            <div class="{% block rightside_class %}col-6 first-background-color{% endblock %} h-100 pe-5">
                 <div class="row py-4 px-2">
                     <div class="col-12 d-flex justify-content-end">
                         <a href="{% url 'users_app:login' %}"
-                            class="size-24 font-weight-bold third-text-color px-2 py-1 {% block loginbtn_class %}{% endblock %} text-decoration-none">Login</a>
+                            class="size-24 font-weight-bold px-2 py-1 text-decoration-none">
+                            Login
+                        </a>
                         <div class="size-24 text-white rounded third-background-color px-2 py-1">Join Us
                             <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
