@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block left_side %}
-<form method="get" action="{% url 'shells_app:trainer' %}">
+<form method="post" action="{% url 'shells_app:trainer' %}">
+    {% csrf_token %}
     <div class="row">
         <div class="col-6">
             <div class="row py-4 px-2">
@@ -37,7 +38,36 @@
     
         </div>
         <div class="col-6">
-            <button type="submit">Start training session</button>
+            <div class="row">
+                <div class="col-12 size-32">
+                    Total cards to train
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    Input a number of cards between 5 and 10
+                </div>
+            </div>
+            <div class="row py-3">
+                <div class="col-4">
+                    Total cards to train
+                </div>
+                <div class="col-3">
+                    <select class="form-select" name="total_cards" id="total_cards">
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row py-3">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-danger">Start training session</button>
+                </div>
+            </div>
         </div>
     </div>
 </form>
