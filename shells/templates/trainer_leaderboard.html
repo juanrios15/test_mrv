@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block left_side %}
+<div class="row size-48 pb-3">
+    <div class="col-12">Congratulations, you've finished your training!</div>
+</div>
+<div class="row bg-white p-3">
+    <div class="col-12 pb-3 size-32">
+        Total cards = {{ trainingsession.shell_count}}
+    </div>
+    <div class="col-12 pb-3 size-32">
+        Time spent seconds = {{ trainingsession.time_spent_session}}
+    </div>
+</div>
+
+{% endblock left_side %}
+
+{% block leftside_class %}
+col-12 first-background-color
+{% endblock %}
+
+{% block rightside_class %}
+d-none
+{% endblock %}
+
+{% block left_navigation_bar %} 
+first-background-color
+{% endblock %}

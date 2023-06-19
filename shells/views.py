@@ -1,5 +1,7 @@
 import math
+from datetime import datetime, date
 
+from django.http import HttpResponseNotFound
 from django.views.generic import View, DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import redirect
@@ -62,16 +64,14 @@ class StartTrainingView(View):
         # Saving the session inside user session
         request.session["training_session_id"] = training_session.id
         # TODO: guardar en una variable del User la sesion que tiene activa para acceder a esta despues.
-        # Creating the User Shell 
-        # TODO: if it already exists update it.
+        # Creating the User Shell
         user_shell = UserShell(user=request.user if request.user.is_authenticated else None, shell_id=available_ids[0])
         user_shell.save()
         return redirect("shells_app:user-shell-detail", pk=user_shell.id)
 
 
-class ShellInstructionDetailView(DetailView):
+class ShellDetailView(DetailView):
     model = UserShell
-    template_name = "shell_instruction.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -86,3 +86,67 @@ class ShellInstructionDetailView(DetailView):
             except TrainingSession.DoesNotExist:
                 pass
         return context
+
+
+class ShellInstructionDetailView(ShellDetailView):
+    template_name = "shell_instruction.html"
+
+
+class ShellResolutionDetailView(ShellDetailView):
+    template_name = "shell_resolution.html"
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.time_spent_drill_instruction = (
+            datetime.now().astimezone() - self.object.created_time
+        ).total_seconds()
+        self.object.save()
+
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+
+class NextCardView(View):
+    def get(self, request, usershell_id, *args, **kwargs):
+        user_shell = UserShell.objects.get(id=usershell_id)
+        user_shell.time_spent_drill_resolution = (
+            datetime.now().astimezone() - user_shell.created_time
+        ).total_seconds() - user_shell.time_spent_drill_instruction
+        user_shell.last_trained_date = date.today()
+        user_shell.save()
+        training_session_id = self.request.session.get("training_session_id")
+        if training_session_id:
+            try:
+                training_session = TrainingSession.objects.get(id=training_session_id)
+                completed_shells = training_session.completed_shells.all()
+                training_session.completed_shells.add(user_shell.shell)
+                new_shell = training_session.session_shells.exclude(id__in=completed_shells).first()
+                training_session.dropped_shell = new_shell
+                training_session.save()
+
+                # Selecting next card
+                if not new_shell:
+                    if training_session.last_shell not in completed_shells:
+                        new_shell = training_session.last_shell
+                    else:
+                        training_session.is_finished = True
+                        training_session.completed_shells.add(user_shell.shell)
+                        training_session.time_spent_session = (
+                            datetime.now().astimezone() - training_session.created_time
+                        ).total_seconds()
+                        training_session.save()
+                        return redirect("shells_app:trainer-leaderboard", pk=training_session.id)
+                user_shell = UserShell(
+                    user=request.user if request.user.is_authenticated else None, shell_id=new_shell.id
+                )
+                user_shell.save()
+                return redirect("shells_app:user-shell-detail", pk=user_shell.id)
+
+            except TrainingSession.DoesNotExist:
+                pass
+        return HttpResponseNotFound("Training session not found.")
+
+
+class TrainingSessionDetailView(DetailView):
+    model = TrainingSession
+    template_name = "trainer_leaderboard.html"

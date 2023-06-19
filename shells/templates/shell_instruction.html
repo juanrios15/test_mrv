@@ -13,8 +13,13 @@
     <div class="col-12 pb-2 size-24 second-text-color">
         {{ usershell.shell.instruction_text}}
     </div>
-    <div class="col-12">
+    <div class="col-12 py-2">
         <img src="{{ usershell.shell.instruction_image.url}}" alt="Imagen 1" style="max-height: 400px;">
+    </div>
+    <div class="col-12 py-3 text-end">
+        <a href="{% url 'shells_app:user-shell-detail-res' usershell.id %}" class="btn btn-danger">
+            Solution
+        </a>
     </div>
 </div>
 
