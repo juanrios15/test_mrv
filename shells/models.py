@@ -54,13 +54,13 @@ class Shell(models.Model):
 
 
 class UserShell(models.Model):
-    user = models.ForeignKey(MrvUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(MrvUser, on_delete=models.CASCADE, null=True, blank=True)
     shell = models.ForeignKey(Shell, on_delete=models.CASCADE)
     last_trained_date = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
     time_spent_drill_instruction = models.FloatField(null=True, blank=True)
     time_spent_drill_resolution = models.FloatField(null=True, blank=True)
-    trained_count = models.IntegerField(null=True, blank=True)
-    difficulty_evaluation = models.BooleanField(default=False)  # TODO: It could have what evaluation the user gave
+    trained_count = models.IntegerField(default=0)
+    difficulty_evaluation = models.ForeignKey(DifficultyLevel, on_delete=models.CASCADE, null=True, blank=True)
     has_liked = models.BooleanField(default=False)
     created_time = models.DateField(auto_now=False, auto_now_add=True)
     updated_time = models.DateField(auto_now=True)
@@ -74,15 +74,15 @@ class UserShell(models.Model):
 
 
 class TrainingSession(models.Model):
-    user = models.ForeignKey(MrvUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(MrvUser, on_delete=models.CASCADE, null=True, blank=True)
     shell_count = models.IntegerField(default=0)  # TODO: What is this counting?
     categories = models.ManyToManyField(Category, blank=True)
-    candidate_shells = models.ManyToManyField("Shell", related_name="candidate_shells", blank=True)
+    # candidate_shells = models.ManyToManyField("Shell", related_name="candidate_shells", blank=True)
     session_shells = models.ManyToManyField("Shell", related_name="session_shells", blank=True)
     last_shell = models.ForeignKey("Shell", on_delete=models.CASCADE, related_name="last_shell", blank=True)
     dropped_shell = models.ForeignKey(
-        "Shell", on_delete=models.CASCADE, related_name="dropped_shell", blank=True
-    )  # TODO: Ask which one is this?
+        "Shell", on_delete=models.CASCADE, related_name="dropped_shell", blank=True, null=True
+    )
     completed_shells = models.ManyToManyField("Shell", related_name="completed_shells", blank=True)
     is_finished = models.BooleanField(default=False)
     created_time = models.DateField(auto_now=False, auto_now_add=True)
@@ -94,4 +94,4 @@ class TrainingSession(models.Model):
         verbose_name_plural = "Training sessions"
 
     def __str__(self):
-        return self.shell
+        return f"{self.user.email} {self.created_time}" 
