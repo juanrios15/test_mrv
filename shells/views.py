@@ -1,7 +1,7 @@
 import math
 from datetime import datetime, date
 
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponse
 from django.views.generic import View, DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import redirect
@@ -91,27 +91,52 @@ class ShellDetailView(DetailView):
 class ShellInstructionDetailView(ShellDetailView):
     template_name = "shell_instruction.html"
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.opened_resolution_time is not None:
+            self.object.time_spent_drill_resolution += (
+                datetime.now().astimezone() - self.object.opened_resolution_time
+            ).total_seconds()
+            self.object.opened_resolution_time = None
+            self.object.save()
+
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
 
 class ShellResolutionDetailView(ShellDetailView):
     template_name = "shell_resolution.html"
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+        if self.object.opened_resolution_time is not None:
+            self.object.time_spent_drill_resolution += (
+                datetime.now().astimezone() - self.object.opened_resolution_time
+            ).total_seconds()
+        self.object.opened_resolution_time = datetime.now().astimezone()
         self.object.time_spent_drill_instruction = (
             datetime.now().astimezone() - self.object.created_time
-        ).total_seconds()
+        ).total_seconds() - self.object.time_spent_drill_resolution
         self.object.save()
-
         context = self.get_context_data(object=self.object)
+        context["is_last_shell"] = False
+        training_session_id = self.request.session.get("training_session_id")
+        if training_session_id:
+            try:
+                training_session = TrainingSession.objects.get(id=training_session_id)
+                if self.object.shell.id == training_session.last_shell.id:
+                    context["is_last_shell"] = True
+            except TrainingSession.DoesNotExist:
+                pass
         return self.render_to_response(context)
 
 
 class NextCardView(View):
     def get(self, request, usershell_id, *args, **kwargs):
         user_shell = UserShell.objects.get(id=usershell_id)
-        user_shell.time_spent_drill_resolution = (
-            datetime.now().astimezone() - user_shell.created_time
-        ).total_seconds() - user_shell.time_spent_drill_instruction
+        user_shell.time_spent_drill_resolution += (
+            datetime.now().astimezone() - user_shell.opened_resolution_time
+        ).total_seconds()
         user_shell.last_trained_date = date.today()
         user_shell.save()
         training_session_id = self.request.session.get("training_session_id")
@@ -150,3 +175,52 @@ class NextCardView(View):
 class TrainingSessionDetailView(DetailView):
     model = TrainingSession
     template_name = "trainer_leaderboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            user_shell_count = UserShell.objects.filter(user=self.request.user).values('shell').distinct().count()
+            total_shell_count = Shell.objects.count()
+            context['card_count'] = total_shell_count - user_shell_count
+        else:
+            total_shell_count = Shell.objects.count()
+            context['card_count'] = total_shell_count - self.object.shell_count
+
+        return context
+
+
+class UserShellLikedView(View):
+    def post(self, request, *args, **kwargs):
+        user_shell_id = kwargs["pk"]
+        user_shell = UserShell.objects.get(id=user_shell_id)
+        user_shell.has_liked = True
+        user_shell.save()
+
+        message = "Liked!"
+        return HttpResponse(message)
+
+
+class UserShellEasyReviewView(View):
+    def post(self, request, *args, **kwargs):
+        EASY_REVIEW = 1
+        user_shell_id = kwargs["pk"]
+        user_shell = UserShell.objects.get(id=user_shell_id)
+
+        user_shell.difficulty_evaluation_id = EASY_REVIEW
+        user_shell.save()
+
+        message = "Reviewed!"
+        return HttpResponse(message)
+
+
+class UserShellHardReviewView(View):
+    def post(self, request, *args, **kwargs):
+        HARD_REVIEW = 3
+        user_shell_id = kwargs["pk"]
+        user_shell = UserShell.objects.get(id=user_shell_id)
+
+        user_shell.difficulty_evaluation_id = HARD_REVIEW
+        user_shell.save()
+
+        message = "Reviewed!"
+        return HttpResponse(message)

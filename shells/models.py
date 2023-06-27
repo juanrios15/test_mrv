@@ -57,12 +57,13 @@ class UserShell(models.Model):
     user = models.ForeignKey(MrvUser, on_delete=models.CASCADE, null=True, blank=True)
     shell = models.ForeignKey(Shell, on_delete=models.CASCADE)
     last_trained_date = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
-    time_spent_drill_instruction = models.FloatField(null=True, blank=True)
-    time_spent_drill_resolution = models.FloatField(null=True, blank=True)
+    time_spent_drill_instruction = models.FloatField(default=0)
+    time_spent_drill_resolution = models.FloatField(default=0)
     trained_count = models.IntegerField(default=0)
     difficulty_evaluation = models.ForeignKey(DifficultyLevel, on_delete=models.CASCADE, null=True, blank=True)
     has_liked = models.BooleanField(default=False)
     created_time = models.DateTimeField(auto_now=False, auto_now_add=True)
+    opened_resolution_time = models.DateTimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     updated_time = models.DateTimeField(auto_now=True)
 
     class Meta:

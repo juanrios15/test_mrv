@@ -4,14 +4,14 @@
 <form method="post" action="{% url 'shells_app:trainer' %}">
     {% csrf_token %}
     <div class="row">
-        <div class="col-6">
+        <div class="col-6 px-4">
             <div class="row py-4 px-2">
                 <div class="col-12 size-48">
                     Configure your course
                 </div>
             </div>
             <div class="row px-2">
-                <div class="categories_div">
+                <div class="categories_div px-3">
                     <div class="row">
                         <div class="col-12 size-32 py-3">
                             Select the "Card content category" you want to train
@@ -25,7 +25,8 @@
                             {% for category in object_list %}
                             <div class="row">
                                 <label>
-                                    <input type="checkbox" name="{{category.name}}" id="{{category.id}}" value="{{category.id}}"> {{category.name}}
+                                    <input type="checkbox" name="{{category.name}}" id="{{category.id}}" value="{{category.id}}" onchange="toggleBold(this)"> 
+                                    {{category.name}}
                                 </label>
                             </div>
                             {% empty %}
@@ -37,7 +38,7 @@
             </div>
     
         </div>
-        <div class="col-6">
+        <div class="col-6 px-4">
             <div class="row">
                 <div class="col-12 size-32">
                     Total cards to train

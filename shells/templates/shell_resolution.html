@@ -17,21 +17,34 @@
         <img src="{{ usershell.shell.resolution_image.url}}" alt="Imagen 1" style="max-height: 400px;">
     </div>
     <div class="col-12">
-        <div class="row">
+        <div class="row py-4">
             <div class="col">
-                <button class="btn btn-warning">I liked the card</button>
+                <button class="btn btn-warning" hx-post="{% url 'shells_app:user-shell-liked' usershell.id %}"
+                    hx-target="#liked-message">I liked the card</button>
+                <div id="liked-message"></div>
             </div>
             <div class="col">
-                <button class="btn btn-primary">It was easy</button>
+                <button class="btn btn-primary" hx-post="{% url 'shells_app:user-shell-easy' usershell.id %}"
+                hx-target="#easy-message">It was easy</button>
+                <div id="easy-message"></div>
             </div>
             <div class="col">
-                <button class="btn btn-light">It was hard</button>
+                <button class="btn btn-light" hx-post="{% url 'shells_app:user-shell-hard' usershell.id %}"
+                hx-target="#hard-message">It was hard</button>
+                <div id="hard-message"></div>
             </div>
             <div class="col">
-                <button class="btn btn-secondary">Redo card</button>
+                <a class="btn btn-secondary" href="{% url 'shells_app:user-shell-detail' usershell.id %}"
+                >Redo card</a>
             </div>
             <div class="col">
-                <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger">Next card</a>
+                <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger">
+                    {% if is_last_shell %}
+                    Finish
+                    {% else %}
+                    Next card    
+                    {% endif %}
+                </a>
             </div>
         </div>
     </div>
@@ -47,6 +60,6 @@ col-12 first-background-color
 d-none
 {% endblock %}
 
-{% block left_navigation_bar %} 
+{% block left_navigation_bar %}
 first-background-color
 {% endblock %}
