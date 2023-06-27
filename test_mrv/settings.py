@@ -54,11 +54,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "users",
-    "shells"
+    "shells",
+    "corsheaders"
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -83,6 +85,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://8000-juanrios15-testmrv-sewwfrbjjh9.ws-us101.gitpod.io',
+    'http://localhost:8000',  # Opcional: Si también deseas permitir solicitudes desde localhost
 ]
 
 WSGI_APPLICATION = "test_mrv.wsgi.application"
