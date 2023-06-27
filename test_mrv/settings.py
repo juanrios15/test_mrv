@@ -85,7 +85,7 @@ TEMPLATES = [
     },
 ]
 
-CSRF_TRUSTED_ORIGINS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io']
 
 WSGI_APPLICATION = "test_mrv.wsgi.application"
 
