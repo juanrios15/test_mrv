@@ -19,8 +19,12 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Saving custom settings
-with open("secret.json") as f:
-    secret = json.loads(f.read())
+try:
+    with open('ROOT/secret.json') as f:
+        secret = json.loads(f.read())
+except FileNotFoundError: 
+    with open('secret.json') as f:
+        secret = json.loads(f.read())
 
 
 def get_secret(secret_name, secrets=secret):
@@ -41,7 +45,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = get_secret("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition

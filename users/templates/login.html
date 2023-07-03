@@ -1,16 +1,54 @@
 {% extends "base.html" %}
 
 {% block left_side %}
-Entra
+<div class="row pb-5 px-2">
+    <div class="col-12 size-64">
+        {Message}
+    </div>
+</div>
+<div class="row px-2 pt-5 second-text-color size-24">
+    <div class="col-12">
+        Learn to draw white board figure in less than 60 minutes.
+    </div>
+</div>
 {% endblock left_side %}
 
+
+{% block right_side %}
+<div class="row p-5">
+    <div class="col-12 size-64">
+        {Login}
+    </div>
+    <div class="col-12 size-24">Enter your credentials to access your account</div>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_username">
+                {{ form.username.label_tag }}
+            </label>
+            <input type="email" class="form-control" name="username" id="id_username" placeholder="Enter your email">
+            
+        </div>
+        <div class="mb-3">
+            <label for="id_password">
+                {{ form.password.label_tag }}
+            </label>
+            <input type="password" name="password" class="form-control" autocomplete="current-password" required="" id="id_password">
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary form-control">Login</button>
+        </div>
+    </form>
+    <div class="col-12">
+        Don't have an account? <a href="/">Sign Up</a> 
+    </div>
+</div>
+{% endblock right_side %}
+    
 {% block leftside_class %}
-    col-6 first-background-color
+    col-6
 {% endblock %}
 
 {% block rightside_class %}
-    col-6 bg-white
-{% endblock %}
-{% block left_navigation_bar %} 
-    first-background-color
+    col-6
 {% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block left_side %}
+<div class="row p-5">
+    <div class="col-12 size-64">
+        Get full access!
+    </div>
+</div>
+<div class="row p-5 second-text-color size-24">
+    <div class="col-12">
+        Learn to draw white board figure in less than 60 minutes.
+    </div>
+</div>
+{% endblock left_side %}
+
+
+{% block right_side %}
+<div class="row p-5">
+    <div class="col-12 size-64">
+        Register now
+    </div>
+    <div class="col-12 size-24">Enter your credentials to access your account</div>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_email">
+                {{ form.email.label_tag }}
+            </label>
+            <input type="email" class="form-control" name="email" id="id_email" placeholder="Enter your email">
+            {% if form.email.errors %}
+                <div class="alert alert-danger">
+                    {{ form.email.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="id_password1">
+                {{ form.password1.label_tag }}
+            </label>
+            <input type="password" name="password1" class="form-control" placeholder="Enter a password" autocomplete="current-password" required id="id_password1">
+            {% if form.password1.errors %}
+                <div class="alert alert-danger">
+                    {{ form.password1.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="id_password2">
+                {{ form.password2.label_tag }}
+            </label>
+            <input type="password" name="password2" class="form-control" placeholder="Confirm your password" autocomplete="current-password" required id="id_password2">
+            {% if form.password2.errors %}
+                <div class="alert alert-danger">
+                    {{ form.password2.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary form-control">Sign up</button>
+        </div>
+    </form>
+    <div class="col-12">
+        Have already an account? <a href="/">Login</a> 
+    </div>
+</div>
+{% endblock right_side %}
+    
+{% block leftside_class %}
+    col-6
+{% endblock %}
+
+{% block rightside_class %}
+    col-6
+{% endblock %}
