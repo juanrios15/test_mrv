@@ -2,25 +2,32 @@
 {% load static %}
 
 {% block left_side %}
-<div class="row size-48 pb-3">
+<div class="row size-48 p-5">
     <div class="col-12">Congratulations, you've finished your training!</div>
 </div>
-<div class="row bg-white p-3">
-    <div class="col-12 pb-3 size-32">
-        Total cards = {{ trainingsession.shell_count}}
-    </div>
-    <div class="col-12 pb-3 size-32">
-        Time spent seconds = {{ trainingsession.time_spent_session}}
-    </div>
-    <div class="col-12 pb-3 size-32">
-        Number of cards you have left to discover = {{ card_count }}
+<div class="row px-5 py-3">
+    <div class="col-12 pb-3 px-5 size-32 bg-white">
+        <div class="py-3 border-bottom col-2 border-danger border-5">{{ trainingsession.shell_count}}</div>
+        <div class="py-3">Total of cards you have practiced during this session</div>
     </div>
 </div>
-<div class="row px-2 size-24 pt-4">
-    <div class="col-12">
-        
+<div class="row px-5 py-3">
+    <div class="col-12 pb-3 px-5 size-32 bg-white">
+        <div class="py-3 border-bottom col-2 border-danger border-5">{{ trainingsession.time_spent_session}}</div>
+        <div class="py-3">Time spent during the session</div>
+    </div>
+</div>
+<div class="row px-5 py-3">
+    <div class="col-12 pb-3 px-5 size-32 bg-white">
+        <div class="py-3 border-bottom col-2 border-danger border-5">{{ card_count }}</div>
+        <div class="py-3">Number of cards you have left to discover!</div>
+    </div>
+</div>
+<div class="row size-24 px-5 pt-3 pb-5">
+    <div class="col-12 pb-5 text-end">
         {% if request.user.is_authenticated %}
-        <a href="{% url 'shells_app:config' %}" type="button" class="btn btn-danger home-start-btn px-4 py-2 text-white">
+        <a href="{% url 'shells_app:config' %}" onclick="handleConfigClick(event)" 
+        type="button" class="btn btn-danger home-start-btn px-4 py-2 text-white">
             Sign up to train again
         </a>
         {% else %}
@@ -42,6 +49,4 @@ col-12 first-background-color
 d-none
 {% endblock %}
 
-{% block left_navigation_bar %} 
-first-background-color
-{% endblock %}
+{% block leftnavbar_class %}first-background-color{% endblock %}

@@ -14,7 +14,8 @@
     </div>
     <div class="row px-2 size-24 pt-4">
         <div class="col-12">
-            <a href="{% url 'shells_app:config' %}" type="button" class="btn btn-danger home-start-btn px-4 py-2 text-white">
+            <a href="{% url 'shells_app:config' %}" onclick="handleConfigClick(event)" type="button"
+                class="btn btn-danger home-start-btn px-4 py-2 text-white">
                 Start Learning Now
             </a>
         </div>
@@ -41,9 +42,9 @@
 {% endblock right_side %}
 
 {% block leftside_class %}
-    col-6 bg-white
+col-6 bg-white
 {% endblock %}
 
 {% block rightside_class %}
-    col-6 first-background-color
+col-6 first-background-color
 {% endblock %}

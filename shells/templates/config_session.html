@@ -3,7 +3,7 @@
 {% block left_side %}
 <form method="post" action="{% url 'shells_app:trainer' %}">
     {% csrf_token %}
-    <div class="row">
+    <div class="row p-4">
         <div class="col-6 px-4">
             <div class="row py-4 px-2">
                 <div class="col-12 size-48">
@@ -39,7 +39,7 @@
     
         </div>
         <div class="col-6 px-4">
-            <div class="row">
+            <div class="row py-4">
                 <div class="col-12 size-32">
                     Total cards to train
                 </div>
