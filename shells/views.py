@@ -176,6 +176,12 @@ class TrainingSessionDetailView(DetailView):
     model = TrainingSession
     template_name = "trainer_leaderboard.html"
 
+    def seconds_to_min_sec(self, seconds):
+        minutes = int(seconds // 60)
+        seconds = int(seconds % 60)
+        print("sec", seconds)
+        return f"{minutes}m {seconds}s"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
@@ -185,6 +191,8 @@ class TrainingSessionDetailView(DetailView):
         else:
             total_shell_count = Shell.objects.count()
             context['card_count'] = total_shell_count - self.object.shell_count
+        if context['object'].time_spent_session is not None:
+            context['time_spent_session_str'] = self.seconds_to_min_sec(context['object'].time_spent_session)
 
         return context
 

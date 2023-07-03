@@ -14,10 +14,17 @@
     </div>
     <div class="row px-2 size-24 pt-4">
         <div class="col-12">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'shells_app:config' %}" type="button"
+                class="btn btn-danger home-start-btn px-4 py-2 text-white">
+                Start Learning Now
+            </a>
+            {% else %}
             <a href="{% url 'shells_app:config' %}" onclick="handleConfigClick(event)" type="button"
                 class="btn btn-danger home-start-btn px-4 py-2 text-white">
                 Start Learning Now
             </a>
+            {% endif %}
         </div>
     </div>
 

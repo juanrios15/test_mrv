@@ -22,10 +22,17 @@
                             <a href="/" class="col-6 size-24 text-decoration-none selected-text-color">
                                 Home</a>
                         </li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item ps-3">
+                            <a href="{% url 'shells_app:config' %}"
+                            class="col-6 text-end size-24 second-text-color text-decoration-none">Trainer</a>
+                        </li>
+                        {% else %}
                         <li class="nav-item ps-3">
                             <a href="{% url 'shells_app:config' %}" onclick="handleConfigClick(event)"
                             class="col-6 text-end size-24 second-text-color text-decoration-none">Trainer</a>
                         </li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>
