@@ -23,6 +23,13 @@ class CustomUserCreationForm(UserCreationForm):
         model = get_user_model()
         fields = ('email', 'password1', 'password2')
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.username = user.email
+        if commit:
+            user.save()
+        return user
+
 
 class RegisterMrvView(CreateView):
     model = get_user_model()
@@ -30,9 +37,6 @@ class RegisterMrvView(CreateView):
     template_name = 'register.html'
     success_url = reverse_lazy('users_app:login')
 
-    def post(self, request, *args, **kwargs):
-        print(request.POST)  # Imprime los datos POST para depurar
-        form = self.form_class(request.POST)
-        print(form.is_valid())  # Imprime si el formulario es válido
-        print(form.errors)  # Imprime cualquier error del formulario
+    def post(self, request, *args, **kwargs): # Imprime los datos POST para depurar
+        self.form_class(request.POST)  # Imprime si el formulario es válido
         return super().post(request, *args, **kwargs)
