@@ -62,3 +62,26 @@
     overflow-y: scroll;
     background-color: white;
 }
+
+@media (min-width:992px) {
+    .size_title {
+        font-size: 64px;
+        letter-spacing: 0.2px;
+        line-height: 64px;
+    }
+    .size_subtitle {
+        font-size: 48px;
+        line-height: 48px;
+    }
+}
+@media (max-width:991px) {
+    .size_title {
+        font-size: 42px;
+        letter-spacing: 0.2px;
+        line-height: 42px;
+    }
+    .size_subtitle {
+        font-size: 32px;
+        line-height: 32px;
+    }
+}

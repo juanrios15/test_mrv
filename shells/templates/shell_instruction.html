@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block left_side %}
-<div class="row size-48 py-3 px-5">
-    <div class="col-6">{{ usershell.shell.title }}</div>
-    <div class="col-6 text-end">Card {{ current_session_shell }} of {{ shell_count }}</div>
+<div class="row size_subtitle py-3 px-md-5">
+    <div class="col-12 col-md-6">{{ usershell.shell.title }}</div>
+    <div class="col-12 col-md-6 text-end">Card {{ current_session_shell }} of {{ shell_count }}</div>
 </div>
-<div class="row bg-white px-5 py-3">
+<div class="row bg-white px-md-5 py-3">
     <div class="col-12 pb-3 size-32">
         Instruction
     </div>
@@ -16,7 +16,7 @@
     <div class="col-12 py-2">
         <img src="{{ usershell.shell.instruction_image.url}}" alt="Imagen 1" style="max-height: 300px;" class="shadow">
     </div>
-    <div class="col-12 py-3 text-end">
+    <div class="col-12 py-3 text-end pb-5 pb-md-1">
         <a href="{% url 'shells_app:user-shell-detail-res' usershell.id %}" class="btn btn-danger">
             Solution
         </a>
