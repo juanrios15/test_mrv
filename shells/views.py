@@ -196,9 +196,8 @@ class TrainingSessionDetailView(DetailView):
 
         return context
 
-
 class UserShellLikedView(View):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         user_shell_id = kwargs["pk"]
         user_shell = UserShell.objects.get(id=user_shell_id)
         user_shell.has_liked = True
@@ -209,7 +208,7 @@ class UserShellLikedView(View):
 
 
 class UserShellEasyReviewView(View):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         EASY_REVIEW = 1
         user_shell_id = kwargs["pk"]
         user_shell = UserShell.objects.get(id=user_shell_id)
@@ -222,7 +221,7 @@ class UserShellEasyReviewView(View):
 
 
 class UserShellHardReviewView(View):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         HARD_REVIEW = 3
         user_shell_id = kwargs["pk"]
         user_shell = UserShell.objects.get(id=user_shell_id)

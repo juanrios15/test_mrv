@@ -14,22 +14,22 @@
         {{ usershell.shell.resolution_text}}
     </div>
     <div class="col-12 py-2">
-        <img src="{{ usershell.shell.resolution_image.url}}" alt="Imagen 1" style="max-height: 300px;" class="shadow">
+        <img src="{{ usershell.shell.resolution_image.url}}" alt="Imagen 1" style="max-height: 300px;" class="shadow image_small">
     </div>
     <div class="col-12 pb-5 pb-md-1">
         <div class="row py-4 text-center">
             <div class="col">
-                <button class="btn btn-warning px-md-4" hx-post="{% url 'shells_app:user-shell-liked' usershell.id %}"
+                <button class="btn btn-warning px-md-4" hx-get="{% url 'shells_app:user-shell-liked' usershell.id %}"
                     hx-target="#liked-message">I liked the card</button>
                 <div id="liked-message"></div>
             </div>
             <div class="col">
-                <button class="btn btn-primary px-md-4" hx-post="{% url 'shells_app:user-shell-easy' usershell.id %}"
+                <button class="btn btn-primary px-md-4" hx-get="{% url 'shells_app:user-shell-easy' usershell.id %}"
                     hx-target="#easy-message">It was easy</button>
                 <div id="easy-message"></div>
             </div>
             <div class="col">
-                <button class="btn btn-light px-md-4" hx-post="{% url 'shells_app:user-shell-hard' usershell.id %}"
+                <button class="btn btn-light px-md-4" hx-get="{% url 'shells_app:user-shell-hard' usershell.id %}"
                     hx-target="#hard-message">It was hard</button>
                 <div id="hard-message"></div>
             </div>

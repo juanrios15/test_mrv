@@ -84,4 +84,10 @@
         font-size: 32px;
         line-height: 32px;
     }
+    .padding_footer {
+        padding-bottom: 80px !important;
+    }
+    .image_small {
+        max-width: 100% !important;
+    }
 }
