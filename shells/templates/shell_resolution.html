@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block left_side %}
-<div class="row size_subtitle py-3 px-5">
+<div class="row size_subtitle py-3 px-2 px-md-5">
     <div class="col-12 col-md-6">{{ usershell.shell.title }}</div>
     <div class="col-12 col-md-6 text-end">Card {{ current_session_shell }} of {{ shell_count }}</div>
 </div>
@@ -18,36 +18,48 @@
     </div>
     <div class="col-12 pb-5 pb-md-1">
         <div class="row py-4 text-center">
-            <div class="col">
-                <button class="btn btn-warning px-md-4" hx-get="{% url 'shells_app:user-shell-liked' usershell.id %}"
-                    hx-target="#liked-message">I liked the card</button>
-                <div id="liked-message"></div>
+            <div class="col-6 col-md-2">
+                <div class="row px-3 py-1">
+                    <button class="btn btn-warning px-md-4" hx-get="{% url 'shells_app:user-shell-liked' usershell.id %}"
+                        hx-target="#liked-message">I liked the card</button>
+                    <div id="liked-message"></div>
+                </div>
             </div>
-            <div class="col">
-                <button class="btn btn-primary px-md-4" hx-get="{% url 'shells_app:user-shell-easy' usershell.id %}"
-                    hx-target="#easy-message">It was easy</button>
-                <div id="easy-message"></div>
+            <div class="col-6 col-md-2">
+                <div class="row px-3 py-1">
+                    <button class="btn btn-primary px-md-4" hx-get="{% url 'shells_app:user-shell-easy' usershell.id %}"
+                        hx-target="#easy-message">It was easy</button>
+                        <div id="easy-message"></div>
+                </div>
             </div>
-            <div class="col">
-                <button class="btn btn-light px-md-4" hx-get="{% url 'shells_app:user-shell-hard' usershell.id %}"
-                    hx-target="#hard-message">It was hard</button>
-                <div id="hard-message"></div>
+            <div class="col-6 col-md-2">
+                <div class="row px-3 py-1">
+                    <button class="btn btn-light px-md-4" hx-get="{% url 'shells_app:user-shell-hard' usershell.id %}"
+                        hx-target="#hard-message">It was hard</button>
+                    <div id="hard-message"></div>
+                </div>
             </div>
-            <div class="col">
-                <a class="btn btn-secondary px-4" href="{% url 'shells_app:user-shell-detail' usershell.id %}">Redo card</a>
+            <div class="col-6 col-md-2">
+                <div class="row px-3 py-1">
+                    <a class="btn btn-secondary px-4" href="{% url 'shells_app:user-shell-detail' usershell.id %}">Redo card</a>
+                </div>
             </div>
             {% if is_last_shell %}
-            <div class="col">
-                <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger px-4"
-                    onclick="localStorage.setItem('AnonymousUser', 'true');">
-                    Finish
-                </a>
+            <div class="col-12 col-md-4">
+                <div class="row px-3 py-1">
+                    <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger px-4"
+                        onclick="localStorage.setItem('AnonymousUser', 'true');">
+                        Finish
+                    </a>
+                </div>
             </div>
             {% else %}
-            <div class="col">
-                <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger px-4">
-                    Next card
-                </a>
+            <div class="col-12 col-md-4">
+                <div class="row px-3 py-1">
+                    <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger px-4">
+                        Next card
+                    </a>
+                </div>
             </div>
             {% endif %}
         </div>
