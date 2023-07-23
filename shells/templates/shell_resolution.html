@@ -20,28 +20,28 @@
         <div class="row py-4 text-center">
             <div class="col-6 col-md-2">
                 <div class="row px-3 py-1">
-                    <button class="btn btn-warning px-md-4" hx-get="{% url 'shells_app:user-shell-liked' usershell.id %}"
-                        hx-target="#liked-message">I liked the card</button>
-                    <div id="liked-message"></div>
-                </div>
-            </div>
-            <div class="col-6 col-md-2">
-                <div class="row px-3 py-1">
-                    <button class="btn btn-primary px-md-4" hx-get="{% url 'shells_app:user-shell-easy' usershell.id %}"
-                        hx-target="#easy-message">It was easy</button>
-                        <div id="easy-message"></div>
-                </div>
-            </div>
-            <div class="col-6 col-md-2">
-                <div class="row px-3 py-1">
-                    <button class="btn btn-light px-md-4" hx-get="{% url 'shells_app:user-shell-hard' usershell.id %}"
+                    <button class="btn btn-info px-md-4" hx-get="{% url 'shells_app:user-shell-hard' usershell.id %}"
                         hx-target="#hard-message">It was hard</button>
                     <div id="hard-message"></div>
                 </div>
             </div>
             <div class="col-6 col-md-2">
                 <div class="row px-3 py-1">
+                    <button class="btn btn-primary px-md-4" hx-get="{% url 'shells_app:user-shell-easy' usershell.id %}"
+                    hx-target="#easy-message">It was easy</button>
+                    <div id="easy-message"></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-2">
+                <div class="row px-3 py-1">
                     <a class="btn btn-secondary px-4" href="{% url 'shells_app:user-shell-detail' usershell.id %}">Redo card</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-2">
+                <div class="row px-3 py-1">
+                    <button class="btn btn-warning px-md-4" hx-get="{% url 'shells_app:user-shell-liked' usershell.id %}"
+                        hx-target="#liked-message">I liked the card</button>
+                    <div id="liked-message"></div>
                 </div>
             </div>
             {% if is_last_shell %}
