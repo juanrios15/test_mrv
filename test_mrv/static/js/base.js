@@ -16,3 +16,12 @@ function handleConfigClick(event) {
         window.location.href = event.target.href;
     }
 }
+
+function toggleKnowledgeBox() {
+    var knowledgeBox = document.getElementById("knowledge_box");
+    var button = document.getElementById("knowledge_btn");
+    knowledgeBox.style.display = knowledgeBox.style.display === "none" ? "block" : "none";
+    button.textContent = knowledgeBox.style.display === "none" ? "Knowledge" : "Hide Knowledge";
+    button.classList.toggle("btn-success");
+    button.classList.toggle("btn-secondary");
+}

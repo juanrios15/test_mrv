@@ -44,6 +44,8 @@ class Shell(models.Model):
     instruction_image = models.ImageField(upload_to=instruction_file_path)
     resolution_text = models.CharField(max_length=500, blank=True, null=True)
     resolution_image = models.ImageField(upload_to=resolution_file_path)
+    knowledge_text = models.CharField(max_length=500, blank=True, null=True)
+    knowledge_image = models.ImageField(upload_to=resolution_file_path, blank=True, null=True)
 
     class Meta:
         verbose_name = "Shell"

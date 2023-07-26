@@ -10,14 +10,61 @@
     <div class="col-12 pb-3 size-32">
         Solution
     </div>
-    <div class="col-12 pb-2 size-24 second-text-color">
-        {{ usershell.shell.resolution_text}}
+    <div class="col-12 col-md-6">
+        <div class="col-12 pb-2 size-24 second-text-color">
+            {{ usershell.shell.resolution_text}}
+        </div>
+        <div class="col-12 py-2">
+            <img src="{{ usershell.shell.resolution_image.url}}" alt="Imagen 1" style="max-height: 300px;" class="shadow image_small">
+        </div>
     </div>
-    <div class="col-12 py-2">
-        <img src="{{ usershell.shell.resolution_image.url}}" alt="Imagen 1" style="max-height: 300px;" class="shadow image_small">
+    
+    {% if usershell.shell.knowledge_image %}
+    <div style="display: none;" id="knowledge_box" class="col-12 col-md-6">
+        <div class="py-2 size-32">
+            Knowledge
+        </div>
+        <div class="col-12 col-md-6 pb-2 size-24 second-text-color">
+            {{ usershell.shell.knowledge_text}}
+        </div>
+        <div class="col-12 col-md-6 py-2">
+            <img src="{{ usershell.shell.knowledge_image.url}}" alt="Imagen 1" style="max-height: 300px;" 
+            class="shadow image_small">
+        </div>
     </div>
+    {% endif %}
+        
     <div class="col-12 padding_footer pb-md-1">
         <div class="row py-4 text-center">
+            {% if is_last_shell %}
+            <div class="col-12 col-md-2">
+                <div class="row px-3 py-1">
+                    <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger px-4"
+                        onclick="localStorage.setItem('AnonymousUser', 'true');">
+                        Finish
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12 col-md-2">
+                <div class="row px-3 py-1">
+                    <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger px-4">
+                        Next card
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if usershell.shell.knowledge_image %}
+            <div class="col-12 col-md-2">
+                <div class="row px-3 py-1">
+                    <button class="btn btn-success px-4" id="knowledge_btn" onclick="toggleKnowledgeBox()">
+                        Knowledge
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+                
             <div class="col-6 col-md-2">
                 <div class="row px-3 py-1">
                     <button class="btn btn-info px-md-4" hx-get="{% url 'shells_app:user-shell-hard' usershell.id %}"
@@ -44,24 +91,6 @@
                     <div id="liked-message"></div>
                 </div>
             </div>
-            {% if is_last_shell %}
-            <div class="col-12 col-md-4">
-                <div class="row px-3 py-1">
-                    <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger px-4"
-                        onclick="localStorage.setItem('AnonymousUser', 'true');">
-                        Finish
-                    </a>
-                </div>
-            </div>
-            {% else %}
-            <div class="col-12 col-md-4">
-                <div class="row px-3 py-1">
-                    <a href="{% url 'shells_app:next-card' usershell.id %}" class="btn btn-danger px-4">
-                        Next card
-                    </a>
-                </div>
-            </div>
-            {% endif %}
         </div>
     </div>
 </div>
