@@ -18,7 +18,7 @@ class ShellAdmin(admin.ModelAdmin):
 
 @admin.register(UserShell)
 class UserShellAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "shell", "last_trained_date", "has_liked", "created_time", "difficulty_evaluation")
+    list_display = ("id", "user", "shell", "last_trained_date", "has_liked", "difficulty_evaluation", "created_time")
     list_filter = ("user", "shell", "has_liked", "difficulty_evaluation")
     search_fields = ("user", "shell")
 
