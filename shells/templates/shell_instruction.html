@@ -6,7 +6,10 @@
     <div class="col-12 col-md-6">{{ usershell.shell.title }}</div>
     <div class="col-12 col-md-6 text-end">Card {{ current_session_shell }} of {{ shell_count }}</div>
 </div>
-<div class="row bg-white px-md-5 py-3">
+<div class="row bg-white px-md-5 py-3 padding_bot">
+    <div class="col-12 size-16">With the support of your choice: "sheet of paper + pencil; tablet; whiteboard;
+        ...", follow the "Instruction".</div>
+    <div class="col-12 pb-2 size-16">Once you have finished your drawing, you can press the "Solution" button!</div>
     <div class="col-12 pb-3 size-32">
         Instruction
     </div>
@@ -14,7 +17,8 @@
         {{ usershell.shell.instruction_text}}
     </div>
     <div class="col-12 py-2">
-        <img src="{{ usershell.shell.instruction_image.url}}" alt="Imagen 1" style="max-height: 300px;" class="shadow image_small">
+        <img src="{{ usershell.shell.instruction_image.url}}" alt="Imagen 1" style="max-height: 300px;"
+            class="shadow image_small">
     </div>
     <div class="col-12 col-md-4 py-3 text-end padding_footer pb-md-1">
         <div class="row px-3">
@@ -37,6 +41,6 @@ col-12 first-background-color
 d-none
 {% endblock %}
 
-{% block left_navigation_bar %} 
+{% block left_navigation_bar %}
 first-background-color
 {% endblock %}
